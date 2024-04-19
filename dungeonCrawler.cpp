@@ -47,6 +47,15 @@ void createDungeon(char dungeon[][SIZE], int size, int bombs, int gold, int exit
         }
     }
 
+    for (int e = 0; e < EXIT; e++){
+        int x = randomNumberGenerator(0, size-1);
+        if(dungeon[x][size-1] == '_'){
+            dungeon[x][size-1] = 'E';
+        } else {
+            e--;
+        }
+    }
+
 //        ◦ make sure that each item placed is in a separate location.
 //        ◦ pass back player starting location via the player location parameter.
 //        ◦ no return values.
