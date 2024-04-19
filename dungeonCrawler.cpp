@@ -43,6 +43,8 @@ void createDungeon(char dungeon[][SIZE], int size, int bombs, int gold, int exit
             p--;
         }
     }
+    // pass back player starting location via the player location parameter.
+        // does this do that?
 
     // Place exit randomly in bottom row
     for (int e = 0; e < EXIT; e++){
@@ -66,8 +68,6 @@ void createDungeon(char dungeon[][SIZE], int size, int bombs, int gold, int exit
             g--;
         }
     }
-//        ◦ pass back player starting location via the player location parameter.
-// Huh
 }
 
 void displayDungeon(char dungeon[][SIZE], int size){
