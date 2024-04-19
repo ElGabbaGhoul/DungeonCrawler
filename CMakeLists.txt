@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(DungeonCrawler main.cpp
         dungeonCrawler.cpp
-        dungeonCrawler.h)
+        dungeonCrawler.h
+        RNG.cpp
+        RNG.h)

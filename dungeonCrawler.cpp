@@ -6,9 +6,12 @@
 
 
 void createDungeon(){
-//        • createDungeon – initialize a new dungeon.
-//        ◦ pass in the dungeon, the number of bombs spaces, number of gold spaces and empty player location as a 2-element* array.
-    //  * A 2-element array is a single dimension array example: loc[0] = x; loc[1] = y;
+//        ◦ pass in the dungeon,
+    //        the number of bombs spaces,
+    //        number of gold spaces
+    //        empty player location as a 2-element* array.
+        //  * A 2-element array is a single dimension array example:
+        //  loc[0] = x; loc[1] = y;
 //        ◦ randomly place that many bombs and gold in the dungeon in empty locations
 //        ◦ randomly place the player and exit, each in an empty location.
 //        ◦ make sure that each item placed is in a separate location.
