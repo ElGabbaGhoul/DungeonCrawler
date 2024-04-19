@@ -14,5 +14,7 @@ const int PLAYER = 1;
 
 void createDungeon(char dungeon[][SIZE], int SIZE, int BOMBS, int GOLD, int EXIT, int PLAYER);
 void displayDungeon(char dungeon[][SIZE], int SIZE);
+void getMove();
+void updateDungeon();
 
 #endif //DUNGEONCRAWLER_DUNGEONCRAWLER_H
