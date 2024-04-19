@@ -6,7 +6,9 @@
 #include <ctime>
 #include <cstdlib>
 
-int randomNumberGenerator(){
-    unsigned int seed = static_cast<unsigned int>(time(nullptr));
+int randomNumberGenerator(int low, int high){
+    auto seed = static_cast<unsigned int>(time(nullptr));
     srand(seed);
+
+    return rand() % (high - low + 1) + low;
 }

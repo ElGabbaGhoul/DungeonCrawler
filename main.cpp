@@ -1,7 +1,14 @@
 #include <iostream>
 #include "dungeonCrawler.h"
+#include "RNG.h"
+
 
 int main() {
+
+    char dungeon[SIZE][SIZE];
+
+    createDungeon(dungeon, SIZE, BOMBS, GOLD, EXIT);
+    displayDungeon(dungeon, SIZE);
 
     // Create Dungeon -- Initialize a new dungeon
     // Display Dungeon -- Displays the dungeon

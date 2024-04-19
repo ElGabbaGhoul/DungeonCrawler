@@ -5,6 +5,6 @@
 #ifndef DUNGEONCRAWLER_RNG_H
 #define DUNGEONCRAWLER_RNG_H
 
-int randomNumberGenerator();
+int randomNumberGenerator(int low, int high);
 
 #endif //DUNGEONCRAWLER_RNG_H
