@@ -7,7 +7,7 @@ int main() {
 
     char dungeon[SIZE][SIZE];
 
-    createDungeon(dungeon, SIZE, BOMBS, GOLD, EXIT);
+    createDungeon(dungeon, SIZE, BOMBS, GOLD, EXIT, PLAYER);
     displayDungeon(dungeon, SIZE);
 
     // Create Dungeon -- Initialize a new dungeon

@@ -8,7 +8,7 @@
 
 
 
-void createDungeon(char dungeon[][SIZE], int size, int bombs, int gold, int exit){
+void createDungeon(char dungeon[][SIZE], int size, int bombs, int gold, int exit, int player){
 //        ◦ pass in the dungeon,
     //        the number of bombs spaces,
     //        number of gold spaces
@@ -35,6 +35,18 @@ void createDungeon(char dungeon[][SIZE], int size, int bombs, int gold, int exit
         }
     }
 //        ◦ randomly place the player and exit, each in an empty location.
+    // Place player randomly in top row
+    // Place exit randomly in bottom row
+    for (int p = 0; p < PLAYER; p++){
+        int x = randomNumberGenerator(0, size-1);
+
+        if (dungeon[x][0] == '_'){
+            dungeon[x][0] = 'P';
+        } else {
+            p--;
+        }
+    }
+
 //        ◦ make sure that each item placed is in a separate location.
 //        ◦ pass back player starting location via the player location parameter.
 //        ◦ no return values.
