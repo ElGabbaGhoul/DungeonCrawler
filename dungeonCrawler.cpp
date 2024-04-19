@@ -23,6 +23,17 @@ void createDungeon(char dungeon[][SIZE], int size, int bombs, int gold, int exit
         }
     }
 //        ◦ randomly place that many bombs and gold in the dungeon in empty locations
+    // Place bombs
+    for (int b = 0; b < bombs; b++){
+        int x = randomNumberGenerator(0, size-1);
+        int y = randomNumberGenerator(0, size-1);
+
+        if (dungeon[x][y] == '_'){
+            dungeon[x][y] = 'B';
+        } else {
+            b--;
+        }
+    }
 //        ◦ randomly place the player and exit, each in an empty location.
 //        ◦ make sure that each item placed is in a separate location.
 //        ◦ pass back player starting location via the player location parameter.
