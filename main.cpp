@@ -27,8 +27,16 @@ int main() {
     displayDungeon(dungeon, SIZE);
     printPlayerLocation(pLoc);
     getMove(dungeon, pLoc, pLocNew);
-
-//    getMove();
+    // Update Dungeon
+        // pass dungeon, pLoc, pLocNew
+        // place new marker at new location, delete old player marker
+    // Check Move
+        // If pLocNew is onto space that is B, G, or E
+        // Return true and update accordingly
+        // Otherwise return false
+    // Play Again
+        // True if yes, False if no
+        // Wrap entire game in do while playAgain == true
 
     // Create Dungeon -- Initialize a new dungeon
     // Display Dungeon -- Displays the dungeon
