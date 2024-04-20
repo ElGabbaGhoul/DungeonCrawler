@@ -5,14 +5,14 @@
 #ifndef DUNGEONCRAWLER_DUNGEONCRAWLER_H
 #define DUNGEONCRAWLER_DUNGEONCRAWLER_H
 
+
 const int SIZE = 5;
-const int BOMBS = 5;
+const int BOMBS = 3;
 const int GOLD = 2;
-const int EXIT = 1;
-const int PLAYER = 1;
 
 
-void createDungeon(char dungeon[][SIZE], int SIZE, int BOMBS, int GOLD, int EXIT, int PLAYER);
+
+void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], int pLoc[2], int size, int bombs, int gold, char itemChar);
 void displayDungeon(char dungeon[][SIZE], int SIZE);
 void getMove();
 void updateDungeon();

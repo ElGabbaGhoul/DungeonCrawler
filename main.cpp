@@ -13,14 +13,17 @@ Description: A single-player dungeon crawler game. Pick up gold, avoid bombs, fi
 
 
 int main() {
+    auto seed = static_cast<unsigned int>(time(nullptr));
+    srand(seed);
 
     char dungeon[SIZE][SIZE];
-    int bLoc[2];
-    int gLoc[2];
-    int eLoc[2];
-    int pLoc[2];
+    char itemChar = '.';
+    int bLoc[2], gLoc[2], eLoc[2], pLoc[2];
 
-    createDungeon(dungeon, SIZE, BOMBS, GOLD, EXIT, PLAYER);
+
+
+
+    createDungeon(dungeon, bLoc, gLoc, eLoc, pLoc, SIZE, BOMBS, GOLD, itemChar);
     displayDungeon(dungeon, SIZE);
 
     // Create Dungeon -- Initialize a new dungeon

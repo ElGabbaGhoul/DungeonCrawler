@@ -3,12 +3,20 @@
 //
 
 #include "RNG.h"
-#include <ctime>
 #include <cstdlib>
 
-int randomNumberGenerator(int low, int high){
-    auto seed = static_cast<unsigned int>(time(nullptr));
-    srand(seed);
+void genRandCoords(char dungeon[][SIZE], int coords[2], int SIZE, char itemChar) {
+    int x, y;
+    do {
+        x = randRange(0, SIZE - 1);
+        y = randRange(0, SIZE - 1);
+    } while (dungeon[x][y] != '_');
 
+    dungeon[x][y] = itemChar;
+    coords[0] = x;
+    coords[1] = y;
+}
+
+int randRange(int low, int high) {
     return rand() % (high - low + 1) + low;
 }
