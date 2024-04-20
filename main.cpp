@@ -26,7 +26,10 @@ int main() {
     createDungeon(dungeon, bLoc, gLoc, eLoc, pLoc, SIZE, BOMBS, GOLD, itemChar);
     displayDungeon(dungeon, SIZE);
     printPlayerLocation(pLoc);
-    getMove(dungeon, pLoc, pLocNew);
+    getMove(dungeon, pLoc, pLocNew, SIZE);
+    updateDungeon(dungeon, pLoc, pLocNew);
+    displayDungeon(dungeon, SIZE);
+
     // Update Dungeon
         // pass dungeon, pLoc, pLocNew
         // place new marker at new location, delete old player marker

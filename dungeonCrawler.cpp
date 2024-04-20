@@ -42,7 +42,7 @@ void printPlayerLocation(int pLoc[]){
     std::cout << "Player is currently at: Col " << pLoc[0] + 1 << ", Row " << pLoc[1] + 1 << "." << std::endl;
 }
 
-void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
+void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2], int size){
     //        ◦ get a move from the user and validate it.
     char playerMove;
 
@@ -51,29 +51,41 @@ void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
 
     if (!std::cin.fail()){
         if (playerMove == 'W' || playerMove == 'w'){
-            if (pLoc[0] - 1 >= 0){
-                pLocNew[0] = pLoc[0] - 1;
-                pLocNew[1] = pLoc[1];
-            }
-        } else if (playerMove == 'A' || playerMove == 'a'){
-            if (pLoc[1] - 1 >= 0){
+            if (pLoc[1] - 1 >= 0 || pLoc[1] - 1 <= size - 1){
                 pLocNew[0] = pLoc[0];
                 pLocNew[1] = pLoc[1] - 1;
+                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
+            } else {
+                std::cout << "Sorry, out of bounds." << std::endl;
+            }
+        } else if (playerMove == 'A' || playerMove == 'a'){
+            if (pLoc[0] - 1 >= 0 || pLoc[0] - 1 <= size - 1){
+                pLocNew[0] = pLoc[0] - 1;
+                pLocNew[1] = pLoc[1];
+                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
+            } else {
+                std::cout << "Sorry, out of bounds." << std::endl;
             }
         } else if (playerMove == 'S' || playerMove == 's'){
-            if (pLoc[0] + 1 >= 0){
-                pLocNew[0] = pLoc[0] + 1;
-                pLocNew[1] = pLoc[1];
-            }
-        } else if (playerMove == 'D' || playerMove == 'd'){
-            if (pLoc[1] + 1 >= 0){
+            if (pLoc[1] + 1 >= 0 || pLoc[1] + 1 <= size - 1){
                 pLocNew[0] = pLoc[0];
                 pLocNew[1] = pLoc[1] + 1;
+                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
+            } else {
+                std::cout << "Sorry, out of bounds." << std::endl;
+            }
+        } else if (playerMove == 'D' || playerMove == 'd'){
+            if (pLoc[0] + 1 >= 0 || pLoc[0] + 1 <= size - 1){
+                pLocNew[0] = pLoc[0] + 1;
+                pLocNew[1] = pLoc[1];
+                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
+            } else {
+                std::cout << "Sorry, out of bounds." << std::endl;
             }
         } else {
             std::cin.ignore(500, '\n');
             std::cin.clear();
-            std::cout << "Invalid input, where would you like to move? (W, A, S, D for up, left, down, right): "
+            std::cout << "Invalid move, where would you like to move? (W, A, S, D for up, left, down, right): "
                       << std::endl;
         }
     } else {
@@ -84,6 +96,23 @@ void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
     }
 std::cout << "Player move: " << (char)toupper(playerMove) << " successfully recorded." << std::endl;
 }
+
+void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
+    // pass dungeon, pLoc, pLocNew
+    // place new marker at new location, delete old player marker
+    int xOld = pLoc[0];
+    int yOld = pLoc[1];
+
+    int x = pLocNew[0];
+    int y = pLocNew[1];
+
+    if (dungeon[x][y] == '_'){
+        dungeon[x][y] = 'P';
+        dungeon[xOld][yOld] = '_';
+
+    }
+}
+
 
 //bool playAgain() {
 //    char playAgain;
