@@ -10,10 +10,9 @@ void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], 
     // Create empty dungeon
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            dungeon[i][j] = '_';
+            dungeon[i][j] = itemChar;
         }
     }
-
     // Place bombs
     for (int i=0; i < bombs; i++){
         genRandCoords(dungeon, bLoc, size, 'B');
@@ -23,13 +22,10 @@ void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], 
         genRandCoords(dungeon, gLoc, size, 'G');
     }
     // Place exit
-    for (int i=0; i < 1; i++){
-        genRandCoords(dungeon, eLoc, size, 'E');
-    }
+    genRandCoords(dungeon, eLoc, size, 'E');
     // Place player
-    for (int i=0; i < 1; i++){
-        genRandCoords(dungeon, pLoc, size, 'P');
-    }
+    genRandCoords(dungeon, pLoc, size, 'P');
+
 }
 
 void displayDungeon(char dungeon[][SIZE], int size){
@@ -42,39 +38,52 @@ void displayDungeon(char dungeon[][SIZE], int size){
     }
 }
 
-//void getMove(char dungeon[][SIZE], int size, int bombs, int gold, int exit, int player){
-//    //        ◦ pass in the current player location and empty new player location, both as 2-element arrays.
-//        // Not sure how to do this?
-//    //        ◦ get a move from the user and validate it.
-//    char playerMove;
-//
-//    std::cout << "Player, where would you like to move? (W, A, S, D for up, left, down, right): " << std::endl;
-//    std::cin >> playerMove;
-//
-//    if (!std::cin.fail()){
-//        if (playerMove == 'W' || playerMove == 'w'){
-//            // update so player moves up a square
-//        } else if (playerMove == 'A' || playerMove == 'a'){
-//            // update so player moves left a square
-//        } else if (playerMove == 'S' || playerMove == 's'){
-//            // update down square
-//        } else if (playerMove == 'D' || playerMove == 'd'){
-//            // update right square
-//        } else {
-//            // invalid input, choose correct character
-//        }
-//    } else {
-//        std::cin.ignore(500, '\n');
-//        std::cin.clear();
-//        std::cout << "Invalid input, where would you like to move? (W, A, S, D for up, left, down, right): "
-//                  << std::endl;
-//    }
-//    //            ▪ legal move.
-//    //            ▪ valid location inside the dungeon.
-//    //        ◦ does not update the dungeon.
-//    //        ◦ pass back the new player location using the parameter.
-//    //        ◦ no return values.
-//}
+void printPlayerLocation(int pLoc[]){
+    std::cout << "Player is currently at: Col " << pLoc[0] + 1 << ", Row " << pLoc[1] + 1 << "." << std::endl;
+}
+
+void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
+    //        ◦ get a move from the user and validate it.
+    char playerMove;
+
+    std::cout << "Player, where would you like to move? (W, A, S, D for up, left, down, right): " << std::endl;
+    std::cin >> playerMove;
+
+    if (!std::cin.fail()){
+        if (playerMove == 'W' || playerMove == 'w'){
+            if (pLoc[0] - 1 >= 0){
+                pLocNew[0] = pLoc[0] - 1;
+                pLocNew[1] = pLoc[1];
+            }
+        } else if (playerMove == 'A' || playerMove == 'a'){
+            if (pLoc[1] - 1 >= 0){
+                pLocNew[0] = pLoc[0];
+                pLocNew[1] = pLoc[1] - 1;
+            }
+        } else if (playerMove == 'S' || playerMove == 's'){
+            if (pLoc[0] + 1 >= 0){
+                pLocNew[0] = pLoc[0] + 1;
+                pLocNew[1] = pLoc[1];
+            }
+        } else if (playerMove == 'D' || playerMove == 'd'){
+            if (pLoc[1] + 1 >= 0){
+                pLocNew[0] = pLoc[0];
+                pLocNew[1] = pLoc[1] + 1;
+            }
+        } else {
+            std::cin.ignore(500, '\n');
+            std::cin.clear();
+            std::cout << "Invalid input, where would you like to move? (W, A, S, D for up, left, down, right): "
+                      << std::endl;
+        }
+    } else {
+        std::cin.ignore(500, '\n');
+        std::cin.clear();
+        std::cout << "Invalid input, where would you like to move? (W, A, S, D for up, left, down, right): "
+                  << std::endl;
+    }
+std::cout << "Player move: " << (char)toupper(playerMove) << " successfully recorded." << std::endl;
+}
 
 //bool playAgain() {
 //    char playAgain;

@@ -17,14 +17,18 @@ int main() {
     srand(seed);
 
     char dungeon[SIZE][SIZE];
-    char itemChar = '.';
-    int bLoc[2], gLoc[2], eLoc[2], pLoc[2];
+    char itemChar = '_';
+    int bLoc[2], gLoc[2], eLoc[2], pLoc[2], pLocNew[2];
 
 
 
 
     createDungeon(dungeon, bLoc, gLoc, eLoc, pLoc, SIZE, BOMBS, GOLD, itemChar);
     displayDungeon(dungeon, SIZE);
+    printPlayerLocation(pLoc);
+    getMove(dungeon, pLoc, pLocNew);
+
+//    getMove();
 
     // Create Dungeon -- Initialize a new dungeon
     // Display Dungeon -- Displays the dungeon
