@@ -30,58 +30,12 @@ void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], 
     for (int i=0; i < 1; i++){
         genRandCoords(dungeon, pLoc, size, 'P');
     }
-//    for (int b = 0; b < bombs; b++){
-//        int x = randomNumberGenerator(0, size-1);
-//        int y = randomNumberGenerator(0, size-1);
-//
-//        if (dungeon[x][y] == '_'){
-//            dungeon[x][y] = 'B';
-//        } else {
-//            b--;
-//        }
-//    }
-
-    // Place player randomly in top row
-//    for (int p = 0; p < player; p++){
-//        int x = randomNumberGenerator(0, size-1);
-//
-//        if (dungeon[x][0] == '_'){
-//            dungeon[x][0] = 'P';
-//        } else {
-//            p--;
-//        }
-//    }
-    // pass back player starting location via the player location parameter.
-        // does this do that?
-
-    // Place exit randomly in bottom row
-//    for (int e = 0; e < exit; e++){
-//        int x = randomNumberGenerator(0, size-1);
-//
-//        if(dungeon[x][size-1] == '_'){
-//            dungeon[x][size-1] = 'E';
-//        } else {
-//            e--;
-//        }
-//    }
-
-    // Place gold randomly
-//    for (int g = 0; g < gold; g++){
-//        int x = randomNumberGenerator(0, size-1);
-//        int y = randomNumberGenerator(0, size-1);
-//
-//        if (dungeon[x][y] == '_'){
-//            dungeon[x][y] = 'G';
-//        } else {
-//            g--;
-//        }
-//    }
 }
 
 void displayDungeon(char dungeon[][SIZE], int size){
 
-    for (int y = 0; y < SIZE; y++){
-        for (int x = 0; x < SIZE; x++){
+    for (int y = 0; y < size; y++){
+        for (int x = 0; x < size; x++){
             std::cout << dungeon[x][y];
         }
         std::cout << std::endl;
