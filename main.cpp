@@ -34,7 +34,7 @@ int main() {
             // cin valid move from user
             getMove(pLoc, pLocNew, SIZE);
             // check if move was to a bomb square
-            isPlaying = checkMove(dungeon, pLocNew, itemChar, goldSum, isPlaying);
+            isPlaying = checkMove(dungeon, pLocNew, goldSum, isPlaying);
             // update dungeon
             updateDungeon(dungeon, pLoc, pLocNew);
             // show updated dungeon

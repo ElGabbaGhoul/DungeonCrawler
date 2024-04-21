@@ -104,7 +104,7 @@ void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
     pLoc[1] = y;
 }
 
-bool checkMove(char dungeon[][SIZE], int pLocNew[2], char& itemChar, int& goldSum, bool& playing){
+bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing){
     // If pLocNew is onto space that is B, G, or E
     // Return true and update accordingly
     int x = pLocNew[0];

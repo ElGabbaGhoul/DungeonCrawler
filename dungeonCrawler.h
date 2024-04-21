@@ -15,7 +15,7 @@ void displayDungeon(char dungeon[][SIZE], int size);
 void printPlayerLocation(int pLoc[]);
 void getMove(int pLoc[2], int pLocNew[2], int size);
 void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]);
-bool checkMove(char dungeon[][SIZE], int pLocNew[2], char& itemChar, int& goldSum, bool& playing);
+bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing);
 bool playAgain();
 
 #endif //DUNGEONCRAWLER_DUNGEONCRAWLER_H
