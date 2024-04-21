@@ -21,8 +21,7 @@ int main() {
     char itemChar = '_';
 
     int goldSum = 0;
-    bool isAlive;
-    bool notExit;
+    bool isPlaying = true;
     bool replay;
 
     // initialize and display starter dungeon
@@ -35,13 +34,13 @@ int main() {
             // cin valid move from user
             getMove(pLoc, pLocNew, SIZE);
             // check if move was to a bomb square
-            isAlive = checkMove(dungeon, pLocNew, itemChar, goldSum, isAlive, notExit);
+            isPlaying = checkMove(dungeon, pLocNew, itemChar, goldSum, isPlaying);
             // update dungeon
-            updateDungeon(dungeon, pLoc, pLocNew, goldSum, isAlive, notExit);
+            updateDungeon(dungeon, pLoc, pLocNew);
             // show updated dungeon
             displayDungeon(dungeon, SIZE);
         // if bomb or exit reached, stop
-        } while (isAlive && notExit);
+        } while (isPlaying);
         // check if want to replay
         replay = playAgain();
     } while (replay);

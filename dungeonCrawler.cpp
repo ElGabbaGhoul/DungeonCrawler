@@ -41,71 +41,55 @@ void displayDungeon(char dungeon[][SIZE], int size){
 }
 
 void printPlayerLocation(int pLoc[]){
-    std::cout << "Player is currently at: Col " << pLoc[0] + 1 << ", Row " << pLoc[1] + 1 << "." << std::endl;
+    std::cout << "Player is currently at: Col " << pLoc[0] << ", Row " << pLoc[1] << "." << std::endl;
 }
 
 void getMove(int pLoc[2], int pLocNew[2], int SIZE){
     char playerMove;
-    // prompt player for wasd move
     std::cout << "Player, where would you like to move? (W, A, S, D for up, left, down, right): " << std::endl;
     std::cin >> playerMove;
 
-    if (!std::cin.fail()){
-        // move up
-        if (playerMove == 'W' || playerMove == 'w'){
-            if (pLoc[1] - 1 >= 0 || pLoc[1] + 1 <= SIZE - 1){
-                pLocNew[0] = pLoc[0];
-                pLocNew[1] = pLoc[1] - 1;
-                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
-            } else {
-                std::cout << "Sorry, out of bounds." << std::endl;
-            }
-        // move left
-        } else if (playerMove == 'A' || playerMove == 'a'){
-            if (pLoc[0] - 1 >= 0 || pLoc[0] + 1 >= SIZE - 1){
-                pLocNew[0] = pLoc[0] - 1;
-                pLocNew[1] = pLoc[1];
-                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
-            } else {
-                std::cout << "Sorry, out of bounds." << std::endl;
-            }
-        // move down
-        } else if (playerMove == 'S' || playerMove == 's'){
-            if (pLoc[1] - 1 >=0 || pLoc[1] + 1  <= SIZE - 1){
-                pLocNew[0] = pLoc[0];
-                pLocNew[1] = pLoc[1] + 1;
-                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
-            } else {
-                std::cout << "Sorry, out of bounds." << std::endl;
-            }
-        // move right
-        } else if (playerMove == 'D' || playerMove == 'd'){
-            if (pLoc[0] - 1 >= 0 || pLoc[0] + 1 <= SIZE - 1){
-                pLocNew[0] = pLoc[0] + 1;
-                pLocNew[1] = pLoc[1];
-                std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
-            } else {
-                std::cout << "Sorry, out of bounds." << std::endl;
-            }
-        // wrong input
-        } else {
-            std::cin.ignore(500, '\n');
+    if (std::cin.fail()) {
+            std::cin.ignore(50000, '\n');
             std::cin.clear();
             std::cout << "Invalid move, where would you like to move? (W, A, S, D for up, left, down, right): "
                       << std::endl;
+        } else {
+            playerMove = (char)toupper(playerMove);
+            if (playerMove == 'W') {
+                if (pLoc[1] - 1 >= 0){
+                        pLocNew[0] = pLoc[0];
+                        pLocNew[1] = pLoc[1] - 1;
+                    } else {
+                        std::cout << "Out of bounds. Try again." << std::endl;
+                    }
+            } else if (playerMove == 'A') {
+                if (pLoc[0] - 1 >= 0){
+                        pLocNew[0] = pLoc[0] - 1;
+                        pLocNew[1] = pLoc[1];
+                } else {
+                    std::cout << "Out of bounds. Try again." << std::endl;
+                }
+            } else if (playerMove == 'S') {
+                if (pLoc[1] + 1 <= SIZE - 1){
+                    pLocNew[0] = pLoc[0];
+                    pLocNew[1] = pLoc[1] + 1;
+                } else {
+                    std::cout << "Out of bounds. Try again." << std::endl;
+                }
+            } else if (playerMove == 'D') {
+                if (pLoc[0] + 1 <= SIZE - 1){
+                    pLocNew[0] = pLoc[0] + 1;
+                    pLocNew[1] = pLoc[1];
+                } else {
+                    std::cout << "Out of bounds. Try again." << std::endl;
+                }
+            }
         }
-    // not a char
-    } else {
-        std::cin.ignore(500, '\n');
-        std::cin.clear();
-        std::cout << "Invalid input, where would you like to move? (W, A, S, D for up, left, down, right): "
-                  << std::endl;
-    }
-// move is output to console
-std::cout << "Player move: " << (char)toupper(playerMove) << " successfully recorded." << std::endl;
+std::cout << "Player move: " << (char)toupper(playerMove) << "!" << std::endl;
 }
 
-void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2], int& goldSum, bool& isAlive, bool& notExit){
+void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
     // pass dungeon, pLoc, pLocNew
     // place new marker at new location, delete old player marker
     int xOld = pLoc[0];
@@ -113,54 +97,45 @@ void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2], int& goldS
 
     int x = pLocNew[0];
     int y = pLocNew[1];
-    // check if new move is empty
-    // Something like this, I need to make sure that P can't leave the bounds of the array
-    // I think the problem is HERE but it could be somewhere else.
-    if ((dungeon[x][y] != '_') && (x - 1 >=0 && x-1 < dungeon.size() && y >=0 && y < dungeon[0].size()) ){
-        char itemChar = dungeon[x][y];
-        // check if bomb exit or gold
-        checkMove(dungeon, pLocNew, itemChar, goldSum, isAlive, notExit);
-        // replace old character
-        dungeon[x][y] = 'P';
-        dungeon[xOld][yOld] = '_';
-        pLoc[0] = x;
-        pLoc[1] = y;
-    } else {
-        // replace old character
-        dungeon[x][y] = 'P';
-        dungeon[xOld][yOld] = '_';
-        pLoc[0] = x;
-        pLoc[1] = y;
-    }
+
+    dungeon[x][y] = 'P';
+    dungeon[xOld][yOld] = '_';
+    pLoc[0] = x;
+    pLoc[1] = y;
 }
 
-bool checkMove(char dungeon[][SIZE], int pLocNew[2], char itemChar, int& goldSum, bool& isAlive, bool& notExit){
+bool checkMove(char dungeon[][SIZE], int pLocNew[2], char& itemChar, int& goldSum, bool& playing){
     // If pLocNew is onto space that is B, G, or E
     // Return true and update accordingly
     int x = pLocNew[0];
     int y = pLocNew[1];
+    playing = true;
 
     // new move is bomb, lose
-    if (dungeon[x][y] == itemChar && itemChar == 'B'){
+    if (dungeon[x][y] == 'B'){
         std::cout << "You hit a bomb. Game over." << std::endl;
-        isAlive = false;
-        return isAlive;
+        playing = false;
+        return playing;
+    }
+
     // new move is gold
-    } else if (dungeon[x][y] == itemChar && itemChar == 'G'){
+    if (dungeon[x][y] == 'G'){
         // add gold
         goldSum += 5;
         std::cout << "You picked up a pile of gold! +5 gold." << std::endl;
         std::cout << "Total gold: " << goldSum << "." << std::endl;
-        return true;
+        return playing;
+    }
+
     // new move is exit, win
-    } else if (dungeon[x][y] == itemChar && itemChar == 'E'){
+    if (dungeon[x][y] == 'E'){
         std::cout << "You reached the exit!" << std::endl;
         std::cout << "You win!" << std::endl;
         std::cout << "Total gold found: " << goldSum << "g!" << std::endl;
-        notExit = false;
-        return notExit;
+        playing = false;
+        return playing;
     }
-    return true;
+    return playing;
 }
 
 bool playAgain() {
@@ -170,17 +145,17 @@ bool playAgain() {
     if (!std::cin.fail()) {
         if (playAgain == 'Y' || playAgain == 'y') {
             return true;
-        } else if (playAgain == 'N' || playAgain == 'n') {
+        }
+
+        if (playAgain == 'N' || playAgain == 'n') {
             std::cout << "Thank you for playing!" << std::endl;
             return false;
-        } else {
-            std::cout << "Invalid input, please enter Y or N" << std::endl;
-        };
+        }
     } else {
         std::cin.clear();
         std::cin.ignore(500, '\n');
         std::cout << "Invalid input, please enter a single character, Y or N"
                   << std::endl;
     }
-    return false;
+    return true;
 }
