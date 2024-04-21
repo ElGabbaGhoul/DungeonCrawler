@@ -26,6 +26,7 @@ void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], 
     // Place player
     genRandCoords(dungeon, pLoc, size, 'P');
 
+    std::cout << "Dungeon Created! Entering..." << std::endl;
 }
 
 void displayDungeon(char dungeon[][SIZE], int size){
@@ -42,8 +43,7 @@ void printPlayerLocation(int pLoc[]){
     std::cout << "Player is currently at: Col " << pLoc[0] + 1 << ", Row " << pLoc[1] + 1 << "." << std::endl;
 }
 
-void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2], int size){
-    //        ◦ get a move from the user and validate it.
+void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2], int size, char itemChar, int goldSum){
     char playerMove;
 
     std::cout << "Player, where would you like to move? (W, A, S, D for up, left, down, right): " << std::endl;
@@ -54,6 +54,8 @@ void getMove(char dungeon[][SIZE], int pLoc[2], int pLocNew[2], int size){
             if (pLoc[1] - 1 >= 0 || pLoc[1] - 1 <= size - 1){
                 pLocNew[0] = pLoc[0];
                 pLocNew[1] = pLoc[1] - 1;
+                checkMove(dungeon, pLocNew, itemChar, goldSum);
+
                 std::cout << "New position: " << pLocNew[0] + 1 << ", " << pLocNew[1] + 1 << "." << std::endl;
             } else {
                 std::cout << "Sorry, out of bounds." << std::endl;
@@ -106,34 +108,57 @@ void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
     int x = pLocNew[0];
     int y = pLocNew[1];
 
-    if (dungeon[x][y] == '_'){
+    if (dungeon[x][y]){
         dungeon[x][y] = 'P';
         dungeon[xOld][yOld] = '_';
+        pLoc[0] = x;
+        pLoc[1] = y;
 
     }
 }
 
+bool checkMove(char dungeon[][SIZE], int pLocNew[2], char itemChar, int goldSum){
+    // If pLocNew is onto space that is B, G, or E
+    // Return true and update accordingly
+    int x = pLocNew[0];
+    int y = pLocNew[1];
 
-//bool playAgain() {
-//    char playAgain;
-//    std::cout << "Would you like to play again? (Y/N)" << std::endl;
-//    std::cin >> playAgain;
-//    if (!std::cin.fail()) {
-//        if (playAgain == 'Y' || playAgain == 'y') {
-////            currentPlayer = 1;
-////            moveLetter = 'X';
-//            return true;
-//        } else if (playAgain == 'N' || playAgain == 'n') {
-//            std::cout << "Thank you for playing!" << std::endl;
-//            return false;
-//        } else {
-//            std::cout << "Invalid input, please enter Y or N" << std::endl;
-//        };
-//    } else {
-//        std::cin.clear();
-//        std::cin.ignore(500, '\n');
-//        std::cout << "Invalid input, please enter a single character, Y or N"
-//                  << std::endl;
-//    }
-//    return false;
-//}
+    if (dungeon[x][y] == 'B'){
+        std::cout << "You hit a bomb. Game over." << std::endl;
+        return true;
+    }else if (dungeon[x][y] == 'G'){
+        goldSum += 5;
+        std::cout << "You picked up a pile of gold! +5 gold." << std::endl;
+        std::cout << "Total gold: " << goldSum << "." << std::endl;
+        return true;
+    } else if (dungeon[x][y] == 'E'){
+        std::cout << "You reached the exit!" << std::endl;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool playAgain() {
+    char playAgain;
+    std::cout << "Would you like to play again? (Y/N)" << std::endl;
+    std::cin >> playAgain;
+    if (!std::cin.fail()) {
+        if (playAgain == 'Y' || playAgain == 'y') {
+//            currentPlayer = 1;
+//            moveLetter = 'X';
+            return true;
+        } else if (playAgain == 'N' || playAgain == 'n') {
+            std::cout << "Thank you for playing!" << std::endl;
+            return false;
+        } else {
+            std::cout << "Invalid input, please enter Y or N" << std::endl;
+        };
+    } else {
+        std::cin.clear();
+        std::cin.ignore(500, '\n');
+        std::cout << "Invalid input, please enter a single character, Y or N"
+                  << std::endl;
+    }
+    return false;
+}
