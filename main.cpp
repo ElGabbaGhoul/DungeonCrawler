@@ -17,6 +17,8 @@ int main() {
     srand(seed);
 
     int goldSum = 0;
+    bool isAlive;
+    bool notExit;
     char dungeon[SIZE][SIZE];
     char itemChar = '_';
     int bLoc[2], gLoc[2], eLoc[2], pLoc[2], pLocNew[2];
@@ -27,10 +29,11 @@ int main() {
         displayDungeon(dungeon, SIZE);
         do {
             printPlayerLocation(pLoc);
-            getMove(dungeon, pLoc, pLocNew, SIZE, itemChar, goldSum);
-            updateDungeon(dungeon, pLoc, pLocNew);
+            getMove(pLoc, pLocNew, SIZE);
+            isAlive = checkMove(dungeon, pLocNew, itemChar, goldSum, isAlive, notExit);
+            updateDungeon(dungeon, pLoc, pLocNew, goldSum, isAlive, notExit);
             displayDungeon(dungeon, SIZE);
-        } while ( itemChar != 'B');
+        } while (isAlive && notExit);
         replay = playAgain();
     } while (replay);
 return 0;
