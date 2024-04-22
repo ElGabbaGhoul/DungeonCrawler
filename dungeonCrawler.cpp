@@ -84,24 +84,37 @@ void getMove(int pLoc[2], int pLocNew[2], int SIZE){
                 } else {
                     std::cout << "Out of bounds. Try again." << std::endl;
                 }
+            } else {
+                std::cin.ignore(50000, '\n');
+                std::cin.clear();
+                std::cout << "Invalid move, where would you like to move? (W, A, S, D for up, left, down, right): "
+                      << std::endl;
+                pLocNew[0] = pLoc[0];
+                pLocNew[1] = pLoc[1];
             }
         }
-std::cout << "Player move: " << (char)toupper(playerMove) << "!" << std::endl;
 }
 
 void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
     // pass dungeon, pLoc, pLocNew
     // place new marker at new location, delete old player marker
-    int xOld = pLoc[0];
-    int yOld = pLoc[1];
+    if (pLoc[0] == pLocNew[0] && pLoc[1] == pLocNew[1]) {
+        int x = pLoc[0];
+        int y = pLoc[1];
 
-    int x = pLocNew[0];
-    int y = pLocNew[1];
+        dungeon[x][y] = 'P';
+    } else {
+        int xOld = pLoc[0];
+        int yOld = pLoc[1];
 
-    dungeon[x][y] = 'P';
-    dungeon[xOld][yOld] = '_';
-    pLoc[0] = x;
-    pLoc[1] = y;
+        int x = pLocNew[0];
+        int y = pLocNew[1];
+
+        dungeon[x][y] = 'P';
+        dungeon[xOld][yOld] = '_';
+        pLoc[0] = x;
+        pLoc[1] = y;
+    }
 }
 
 bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing){
@@ -140,22 +153,22 @@ bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing
 
 bool playAgain() {
     char playAgain;
-    std::cout << "Would you like to play again? (Y/N)" << std::endl;
-    std::cin >> playAgain;
-    if (!std::cin.fail()) {
-        if (playAgain == 'Y' || playAgain == 'y') {
-            return true;
-        }
 
-        if (playAgain == 'N' || playAgain == 'n') {
-            std::cout << "Thank you for playing!" << std::endl;
-            return false;
+    while (true) {
+        std::cout << "Would you like to play again? (Y/N)" << std::endl;
+        std::cin >> playAgain;
+
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(500, '\n');
+            std::cerr << "Invalid input, please enter a single character, Y or N."
+                      << std::endl;
+        } else {
+            playAgain = char(toupper(playAgain));
+            if (playAgain == 'Y' || playAgain == 'N') {
+                std::cout << "Thank you for playing!" << std::endl;
+                return playAgain == 'Y';
+            }
         }
-    } else {
-        std::cin.clear();
-        std::cin.ignore(500, '\n');
-        std::cout << "Invalid input, please enter a single character, Y or N"
-                  << std::endl;
     }
-    return true;
 }
