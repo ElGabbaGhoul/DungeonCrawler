@@ -1,3 +1,3 @@
-C:/Users/scnid/CLionProjects/DungeonCrawler/cmake-build-debug/CMakeFiles/DungeonCrawler.dir
-C:/Users/scnid/CLionProjects/DungeonCrawler/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/scnid/CLionProjects/DungeonCrawler/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Scooter/CLionProjects/DungeonCrawler/cmake-build-debug/CMakeFiles/DungeonCrawler.dir
+C:/Users/Scooter/CLionProjects/DungeonCrawler/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Scooter/CLionProjects/DungeonCrawler/cmake-build-debug/CMakeFiles/rebuild_cache.dir

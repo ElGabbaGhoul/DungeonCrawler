@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/scnid/CLionProjects/DungeonCrawler/cmake-build-debug",
-		"source" : "C:/Users/scnid/CLionProjects/DungeonCrawler"
+		"build" : "C:/Users/Scooter/CLionProjects/DungeonCrawler/cmake-build-debug",
+		"source" : "C:/Users/Scooter/CLionProjects/DungeonCrawler"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 6
+		"minor" : 5
 	}
 }

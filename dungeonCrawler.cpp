@@ -127,6 +127,7 @@ bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing
     // new move is bomb, lose
     if (dungeon[x][y] == 'B'){
         std::cout << "You hit a bomb. Game over." << std::endl;
+        goldSum = 0;
         playing = false;
         return playing;
     }
