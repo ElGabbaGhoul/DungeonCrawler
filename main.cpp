@@ -25,18 +25,19 @@ int main() {
     bool isPlaying = true;
     bool replay;
 
+    charName = getCharacterName();
+
     // initialize and display starter dungeon
     do {
-        charName = getCharacterName();
         createDungeon(dungeon, bLoc, gLoc, eLoc, pLoc, SIZE, BOMBS, GOLD, itemChar);
         displayDungeon(dungeon, SIZE);
         do {
             // Show player location in console
             printPlayerLocation(pLoc, charName);
             // cin valid move from user
-            getMove(pLoc, pLocNew, SIZE);
+            getMove(pLoc, pLocNew, SIZE, charName);
             // check if move was to a bomb square
-            isPlaying = checkMove(dungeon, pLocNew, goldSum, isPlaying);
+            isPlaying = checkMove(dungeon, pLocNew, goldSum, isPlaying, charName);
             // update dungeon
             updateDungeon(dungeon, pLoc, pLocNew);
             // show updated dungeon

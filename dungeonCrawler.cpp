@@ -28,7 +28,7 @@ void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], 
     // Place player
     genRandCoords(dungeon, pLoc, SIZE, 'P');
 
-    std::cout << "Dungeon Created! Now Entering..." << std::endl;
+    std::cout << "Dungeon Created! Now Entering...The " ;
     displayDungeonName();
 }
 
@@ -43,12 +43,12 @@ void displayDungeon(char dungeon[][SIZE], int size){
 }
 
 void printPlayerLocation(int pLoc[], std::string charName){
-    std::cout << charName << " is currently at: Col " << pLoc[0] << ", Row " << pLoc[1] << "." << std::endl;
+    std::cout << charName << " is currently at: Row " << pLoc[1] + 1 << ", Col " << pLoc[0] + 1<< "." << std::endl;
 }
 
-void getMove(int pLoc[2], int pLocNew[2], int SIZE){
+void getMove(int pLoc[2], int pLocNew[2], int SIZE, std::string charName){
     char playerMove;
-    std::cout << "Player, where would you like to move? (W, A, S, D for up, left, down, right): " << std::endl;
+    std::cout << charName << ", where would you like to move? (W/A/S/D: up, left, down, right): " << std::endl;
     std::cin >> playerMove;
 
     if (std::cin.fail()) {
@@ -119,7 +119,7 @@ void updateDungeon(char dungeon[][SIZE], int pLoc[2], int pLocNew[2]){
     }
 }
 
-bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing){
+bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing, std::string charName){
     // If pLocNew is onto space that is B, G, or E
     // Return true and update accordingly
     int x = pLocNew[0];
@@ -128,7 +128,7 @@ bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing
 
     // new move is bomb, lose
     if (dungeon[x][y] == 'B'){
-        std::cout << "You hit a bomb. Game over." << std::endl;
+        std::cout << charName << " hit a bomb. Game over." << std::endl;
         goldSum = 0;
         playing = false;
         return playing;
@@ -138,7 +138,7 @@ bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing
     if (dungeon[x][y] == 'G'){
         // add gold
         goldSum += 5;
-        std::cout << "You picked up a pile of gold! +5 gold." << std::endl;
+        std::cout << charName << "picked up a pile of gold! +5 gold." << std::endl;
         std::cout << "Total gold: " << goldSum << "." << std::endl;
         return playing;
     }
@@ -146,7 +146,7 @@ bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing
     // new move is exit, win
     if (dungeon[x][y] == 'E'){
         std::cout << "You reached the exit!" << std::endl;
-        std::cout << "You win!" << std::endl;
+        std::cout << charName << " wins!" << std::endl;
         std::cout << "Total gold found: " << goldSum << "g!" << std::endl;
         playing = false;
         return playing;
@@ -156,6 +156,7 @@ bool checkMove(char dungeon[][SIZE], int pLocNew[2], int& goldSum, bool& playing
 
 bool playAgain() {
     char playAgain;
+    bool replay;
 
     while (true) {
         std::cout << "Would you like to play again? (Y/N)" << std::endl;
@@ -168,9 +169,14 @@ bool playAgain() {
                       << std::endl;
         } else {
             playAgain = char(toupper(playAgain));
-            if (playAgain == 'Y' || playAgain == 'N') {
+            if (playAgain == 'Y') {
+                replay = true;
+                return replay;
+            }
+            if (playAgain == 'N') {
                 std::cout << "Thank you for playing!" << std::endl;
-                return playAgain == 'Y';
+                replay = false;
+                return replay;
             }
         }
     }
