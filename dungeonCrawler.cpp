@@ -5,6 +5,7 @@
 #include <iostream>
 #include "dungeonCrawler.h"
 #include "RNG.h"
+#include "namingThings.h"
 
 
 void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], int pLoc[2], int SIZE, int bombs, int gold, char itemChar) {
@@ -27,7 +28,8 @@ void createDungeon(char dungeon[][SIZE], int bLoc[2], int gLoc[2], int eLoc[2], 
     // Place player
     genRandCoords(dungeon, pLoc, SIZE, 'P');
 
-    std::cout << "Dungeon Created! Entering..." << std::endl;
+    std::cout << "Dungeon Created! Now Entering..." << std::endl;
+    displayDungeonName();
 }
 
 void displayDungeon(char dungeon[][SIZE], int size){
@@ -40,8 +42,8 @@ void displayDungeon(char dungeon[][SIZE], int size){
     }
 }
 
-void printPlayerLocation(int pLoc[]){
-    std::cout << "Player is currently at: Col " << pLoc[0] << ", Row " << pLoc[1] << "." << std::endl;
+void printPlayerLocation(int pLoc[], std::string charName){
+    std::cout << charName << " is currently at: Col " << pLoc[0] << ", Row " << pLoc[1] << "." << std::endl;
 }
 
 void getMove(int pLoc[2], int pLocNew[2], int SIZE){

@@ -9,13 +9,14 @@ Description: A single-player dungeon crawler game. Pick up gold, avoid bombs, fi
 
 #include <iostream>
 #include "dungeonCrawler.h"
+#include "namingThings.h"
 
 
 int main() {
     // seed random number generator
     auto seed = static_cast<unsigned int>(time(nullptr));
     srand(seed);
-
+    std::string charName;
     char dungeon[SIZE][SIZE];
     int bLoc[2], gLoc[2], eLoc[2], pLoc[2], pLocNew[2];
     char itemChar = '_';
@@ -26,11 +27,12 @@ int main() {
 
     // initialize and display starter dungeon
     do {
+        charName = getCharacterName();
         createDungeon(dungeon, bLoc, gLoc, eLoc, pLoc, SIZE, BOMBS, GOLD, itemChar);
         displayDungeon(dungeon, SIZE);
         do {
             // Show player location in console
-            printPlayerLocation(pLoc);
+            printPlayerLocation(pLoc, charName);
             // cin valid move from user
             getMove(pLoc, pLocNew, SIZE);
             // check if move was to a bomb square

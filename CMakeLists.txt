@@ -7,4 +7,6 @@ add_executable(DungeonCrawler main.cpp
         dungeonCrawler.cpp
         dungeonCrawler.h
         RNG.cpp
-        RNG.h)
+        RNG.h
+        namingThings.cpp
+        namingThings.h)
